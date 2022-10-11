@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import kr.ac.kumoh.s20200062.w0501carddealer.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -13,9 +14,30 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         setContentView(binding.root)
 
-        getCardName(29)
+        binding.btnDeal.setOnClickListener {
+            val c = IntArray(5)
+            val res = IntArray(5)
 
-        binding.card1.setImageResource(R.drawable.c_10_of_spades)
+            for (i in 0 until c.size) {
+                c[i] = Random.nextInt(52)
+
+                res[i] = resources.getIdentifier(
+                    getCardName(c[i]),
+                    "drawable",
+                    packageName
+                )
+            }
+//            val res = resources.getIdentifier(
+//                getCardName(Random.nextInt(52)),
+//                "drawable",
+//                packageName
+//            )
+            binding.card1.setImageResource(res[0])
+            binding.card2.setImageResource(res[1])
+            binding.card3.setImageResource(res[2])
+            binding.card4.setImageResource(res[3])
+            binding.card5.setImageResource(res[4])
+        }
     }
 
     private fun getCardName(c: Int): String {
@@ -40,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
         Log.i("getCardName()", number.toString())
 
-        return "c_ace_of_spades"
+        return "c_${number}_of_${shape}"
     }
 
 
